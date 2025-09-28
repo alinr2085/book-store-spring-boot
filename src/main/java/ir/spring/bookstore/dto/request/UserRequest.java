@@ -8,10 +8,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class UserRequest {
-        @NotNull
-        @NotEmpty
+        @NotNull(message = "username is null")
+        @NotEmpty(message = "username is empty")
         private final String username;
-        @NotNull
-        @NotEmpty
+        @NotNull(message = "password is null")
+        @NotEmpty(message = "password is empty")
         private final String password;
 }
