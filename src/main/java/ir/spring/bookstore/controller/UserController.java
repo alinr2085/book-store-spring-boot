@@ -1,8 +1,10 @@
 package ir.spring.bookstore.controller;
 
+import ir.spring.bookstore.dto.request.UserRequest;
 import ir.spring.bookstore.dto.response.UserResponse;
 import ir.spring.bookstore.model.User;
 import ir.spring.bookstore.service.user.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,9 +22,7 @@ public class UserController {
         }
 
         @PostMapping
-        public ResponseEntity<UserResponse> signupAndSave(@RequestBody User user) {
-                return ResponseEntity.ok(userService.save(user));
+        public ResponseEntity<UserResponse> signupAndSave(@RequestBody @Valid UserRequest userRequest) {
+                return ResponseEntity.ok(userService.save(userRequest));
         }
-
-
 }

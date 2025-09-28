@@ -1,5 +1,6 @@
 package ir.spring.bookstore.service.user;
 
+import ir.spring.bookstore.dto.request.UserRequest;
 import ir.spring.bookstore.dto.response.UserResponse;
 import ir.spring.bookstore.exception.RuleException;
 import ir.spring.bookstore.model.User;
@@ -16,10 +17,11 @@ public class UserServiceImpl implements UserService {
         }
 
         @Override
-        public UserResponse save(User user) {
-                if (userRepository.findByUsername(user.getUsername()) == null) {
-                        User savedUser = userRepository.save(user);
-                        UserResponse.builder().id(savedUser.getId()).username(savedUser.getUsername()).build();
+        public UserResponse save(UserRequest userRequest) {
+                if (userRepository.findByUsername(userRequest.getUsername()) == null) {
+                        User user = User.builder().username(userRequest.getUsername()).password(userRequest.getPassword()).build();
+                        User saved = userRepository.save(user);
+                        return UserResponse.builder().id(saved.getId()).username(saved.getUsername()).build();
                 }
                 throw new RuleException("user.is.exist");
         }
