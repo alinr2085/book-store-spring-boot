@@ -2,6 +2,8 @@ package ir.spring.bookstore.controller;
 
 import ir.spring.bookstore.dto.response.ExceptionResponse;
 import ir.spring.bookstore.exception.RuleException;
+import org.springframework.context.MessageSource;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -12,6 +14,11 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ExceptionController {
+
+        private final MessageSourceAccessor messageSource;
+        public ExceptionController(MessageSourceAccessor messageSource) {
+                this.messageSource = messageSource;
+        }
 
         @ExceptionHandler(RuleException.class)
         public ResponseEntity<List<ExceptionResponse>> handleRuleException(RuleException ex) {
@@ -28,6 +35,6 @@ public class ExceptionController {
         }
 
         private ExceptionResponse getRuleExceptionResponse(RuleException ex) {
-                return ExceptionResponse.builder().message(ex.getMessage()).errorType(ex.getMessage()).build();
+                return ExceptionResponse.builder().message(messageSource.getMessage(ex.getMessage())).errorType(ex.getMessage()).build();
         }
 }
