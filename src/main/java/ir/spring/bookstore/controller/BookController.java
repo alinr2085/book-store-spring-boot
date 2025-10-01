@@ -5,8 +5,6 @@ import java.util.List;
 import ir.spring.bookstore.dto.request.BookRequest;
 import ir.spring.bookstore.dto.response.BookResponse;
 import ir.spring.bookstore.service.book.BookService;
-import ir.spring.bookstore.service.book.BookServiceImpl;
-import ir.spring.bookstore.service.user.UserService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,5 +33,16 @@ public class BookController {
         @GetMapping("/{name}")
         public ResponseEntity<List<BookResponse>> findByName(@PathVariable String name) {
                 return ResponseEntity.ok(bookService.findByName(name));
+        }
+
+        @GetMapping("/id/{id}")
+        public ResponseEntity<BookResponse> findById(@PathVariable long id) {
+                return ResponseEntity.ok(bookService.findById(id));
+        }
+
+        @DeleteMapping("/{id}")
+        public ResponseEntity<?> deleteById(@PathVariable long id) {
+                bookService.deleteById(id);
+                return ResponseEntity.ok().build();
         }
 }
