@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
                         User saved = userRepository.save(user);
                         return UserResponse.builder().id(saved.getId()).username(saved.getUsername()).build();
                 }
-                throw new RuleException("username_already_exist");
+                throw new RuleException("username_already_exists");
         }
 
         @Override
