@@ -4,13 +4,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @Table(schema = SchemaName.SchemaName)
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ShoppingCard extends BaseEntity {
         private int count;
         @ManyToOne
